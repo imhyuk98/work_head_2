@@ -1,0 +1,150 @@
+<%-include('header.ejs')%>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                background: linear-gradient(#fff, #fff);
+                color: #000;
+                text-align: center;
+            }
+
+            h2 {
+                border-bottom: 1px solid #aaa;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+
+            table {
+                width: 80%;
+                margin: 20px auto;
+                border-collapse: collapse;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                text-align: center;
+                border-right: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #a2d2ff;
+                color: #000;
+            }
+
+            tr:nth-child(even) {
+                background-color: #fff;
+                border-bottom: 1px solid #ddd;
+            }
+
+            a {
+                color: red;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            #generation {
+                width: 200px;
+                border: 1px solid #C4C4C4;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding: 12px 13px;
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16px;
+                margin-top: 10px;
+            }
+
+            #generation:focus {
+                border: 1px solid #4078c0;
+                box-sizing: border-box;
+                border-radius: 10px;
+                outline: 3px solid #a2d2ff;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <label for="generation">기수 :</label>
+        <select name="generation" id="generation">
+            <option value="2023_1">2023-1</option>
+            <option value="2023_2">2023-2</option>
+            <option value="2024_1">2024-1</option>
+            <option value="2024_2" selected>2024-2</option>
+        </select>
+        <script>
+            // 셀렉트 엘리먼트 참조
+            var generationSelect = document.getElementById("generation");
+
+            // 셀렉트 박스에서 값이 변경될 때 호출되는 함수
+            generationSelect.addEventListener("change", function () {
+                // 선택된 옵션의 값 가져오기
+                var selectedValue = generationSelect.value;
+
+                // 선택된 값에 따라 href 동적으로 변경
+                switch (selectedValue) {
+                    case "2023_1":
+                        window.location.href = "/member2023_1"; // 변경할 URL 입력
+                        break;
+                    case "2023_2":
+                        window.location.href = "/member2023_2"; // 변경할 URL 입력
+                        break;
+                    case "2024_1":
+                        window.location.href = "/member2024_1"; // 변경할 URL 입력
+                        break;
+                    case "2024_2":
+                        window.location.href = "/member2024_2"; // 변경할 URL 입력
+                        break;
+                    default:
+                        // 기본 동작 설정 (예: 특정 URL로 이동하거나 아무 동작 안 함)
+                        break;
+                }
+            });
+        </script>
+        <table border="1">
+            <tr>
+                <th>기수</th>
+                <th>이름</th>
+                <th>학번</th>
+                <th>전화번호</th>
+                <th>관리</th>
+            </tr>
+
+            <% lists.forEach(function(item){ %>
+                <tr>
+                    <td>
+                        <%=item.generation%>
+                    </td>
+                    <td>
+                        <%=item.name%>
+                    </td>
+                    <td>
+                        <%=item.stu_num%>
+                    </td>
+                    <td>
+                        <%=item.phone%>
+                    </td>
+                    <td><a href="/contactDelete?idx=<%=item.idx%>" onclick="return confirm('정말 삭제할까요?')">삭제</a></td>
+                </tr>
+                <% }) %>
+        </table>
+    </body>
+
+    </html>
+
+
+    <%-include('footer.ejs')%>
